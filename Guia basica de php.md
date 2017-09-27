@@ -554,3 +554,128 @@ setcookie('nombre','',time()-1);
 ### unset
 
 ### array_map()
+
+## Programacion Orientada a Objetos
+
+### Clases
+
+Estructura de clase
+```php
+class MiClase
+{
+ //Linea de codigo
+}
+
+$instanciaClase1 = new MiClase();
+$instanciaClase2 = new MiClase();
+
+```
+
+### Propiedades y metodos
+
+```php
+class MiClase
+{
+   public $mi_propiedad;
+   
+   public function mi_metodo()
+   {
+      //Lineas de codigo
+   }
+}
+
+$instanciaClase = new MiClase();
+$instanciaClase->mi_propiedad = "Valor";
+$instanciaClase->mi_metodo();
+
+```
+
+### Niveles de acceso
+
+```php
+class MiClase
+{
+   public $mi_propiedad_publica;
+   private $mi_propiedad_privada;
+   
+   public function mi_metodo_publico()
+   {
+      //Lineas de codigo
+   }
+   
+   private function mi_metodo_privado()
+   {
+      //Lineas de codigo
+   }
+}
+
+$instanciaClase = new MiClase();
+
+$instanciaClase->mi_propiedad_publica = "Valor";
+$instanciaClase->mi_propiedad_privada = "Valor"; #Genera error 
+
+$instanciaClase->mi_metodo_publica();
+$instanciaClase->mi_metodo_privada(); #Genera error 
+```
+
+### Encapsulamiento, Getters y Setters
+
+```php
+class Persona
+{
+   private $nombre;
+   
+   public function getNombre()
+   {
+      return $this->nombre;
+   }
+   
+   public function setNombre($_nombre)
+   {
+      $this->nombre = $_nombre;
+   }
+}
+
+$cliente = new Persona();
+$cliente->setNombre("Juanito");
+
+echo "Bienvenido ". $cliente->getNombre();
+
+# Bienvenido Juanito
+
+```
+
+### Consutructores y Destructores
+
+```php
+
+public class MiClase
+{
+
+  public function __construct()
+  {
+      echo "Constructor sin parametro";
+  }
+
+  public function __construct($parametro)
+  {
+    echo "Constructor con parametro : " . $parametro;
+  }
+  
+  public function __destruct()
+  {
+    echo "Destruido";
+  }
+}
+
+
+$miObjeto1 = new MiClase();
+# Constructor sin parametro
+
+$miObjeto2 = new MiClase("ABC");
+# Constructor con parametro : ABC
+
+# Destruido
+
+```
+
