@@ -798,23 +798,174 @@ Acceso desde hijos
       }
   }
 ```
+## Variables de entorno web
+
+### $_GET
+
+Captura las variables enviadas por el metodo GET.
+```php
+    $nombre = $_GET["nombre"];  
+```
+
+### $_POST
+
+Captura las variables enviadas por el metodo POST.
+```php
+    $nombre = $_POST["nombre"];  
+```
+
+### $_REQUEST
+
+Captura las variables enviadas por el metodo GET o POST.
+```php
+    $nombre = $_REQUEST["nombre"];  
+```
+
+### $_FILES
+
+Captura un archivo subidos al sistema.
+
+
+```php
+    $nombre = $_REQUEST["nombre"];  
+```
 
 
 
+### $_SESSION
 
-
-
-
-
-
-
-
-
-
+Captura las variables guardadas en session.
+```php
+    $nombre = $_SESSION["nombre"];  
+```
 
 ## Funciones PHP
 
+### isset
+
+Retorna true si la variable existe:
+```php
+  isset($variable)
+```
+### empty
+
+Retorna true si la variable es null
+```php
+  empty($variable)
+```
+
 ### unset
 
-### array_map()
+Destruye el objeto
+```php
+  unset($objeto)
+```
 
+### mail
+Envia un correo
+```php
+   # destinatario , asunto, cuerpo , remitente
+   mail($to,$subject,$body,$from);
+```
+
+## Manejo de archivos
+
+### Crear y escribir archivo
+
+```php
+    $file = fopen("archivo.txt","a")
+            or die("Error al crear el archivo");
+    
+    fwrite($file, "Hola mundo");
+    fwrite($file, " .. Fin");
+    fclose($file);
+```
+
+
+### Leer archivos
+
+```php 
+    $file = fopen("archivo.txt","r");
+   
+    $linea = 0;
+    
+    while(!feof($file))
+    {
+        $contenido = fgets($file);
+        $contenido = nl2br($file); #Cambia nl a <br>
+        
+        echo "$linea -> $contenido";
+        $linea++;       
+    }
+```
+
+### Eliminar archivo
+
+```php
+     unlink($filename);
+```
+  
+## Conexion a BD
+ 
+### Select
+
+```php
+   $cn = mysqli_connect($server, $userDB, $passBD)
+         or die("Error al conectarse a la BD");
+         
+   mysqli_select_db($cn, "BaseDatos") 
+   or die("Error al seleccionar BD");
+   
+   $rs = mysqli_query($cn , "Select ...") 
+   or die("Error al realizar la consulta");
+   
+   while( $row = mysqli_fetch_array($rs) )
+   {
+       echo $row["column_name"];
+   }
+```
+
+#### Ejecucion de comandos
+ 
+```php
+<!Doctype html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <?php
+    if(isset($_REQUEST['upload'])){
+        
+        echo "Se subira el archivo";
+        
+        foreach($_FILES['foto'] as $item => $valor)
+        {
+            echo "$item => $valor <br>";
+        }
+        
+        $tmp_name=$_FILES['foto']['tmp_name'];
+        $name = $_FILES['foto']['name'];
+        
+        copy($tmp_name,$name);
+        
+        echo "Archivo subido exitosamente";
+        
+        echo "<img src='$name'>";
+        
+        
+    }else
+    {
+        echo "No subira el archivo";
+    }
+    ?>
+        <form enctype="multipart/form-data" method="post">
+            <input type="file" name="foto">
+            <input type="submit" name='upload' value="upload">
+        </form>
+</body>
+
+</html>
+```
