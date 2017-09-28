@@ -547,14 +547,6 @@ Destruir cookie
 ```php
 setcookie('nombre','',time()-1);
 ```
-
-
-## Funciones PHP
-
-### unset
-
-### array_map()
-
 ## Programacion Orientada a Objetos
 
 ### Clases
@@ -571,79 +563,6 @@ $instanciaClase2 = new MiClase();
 
 ```
 
-### Propiedades y metodos
-
-```php
-class MiClase
-{
-   public $mi_propiedad;
-   
-   public function mi_metodo()
-   {
-      //Lineas de codigo
-   }
-}
-
-$instanciaClase = new MiClase();
-$instanciaClase->mi_propiedad = "Valor";
-$instanciaClase->mi_metodo();
-
-```
-
-### Niveles de acceso
-
-```php
-class MiClase
-{
-   public $mi_propiedad_publica;
-   private $mi_propiedad_privada;
-   
-   public function mi_metodo_publico()
-   {
-      //Lineas de codigo
-   }
-   
-   private function mi_metodo_privado()
-   {
-      //Lineas de codigo
-   }
-}
-
-$instanciaClase = new MiClase();
-
-$instanciaClase->mi_propiedad_publica = "Valor";
-$instanciaClase->mi_propiedad_privada = "Valor"; #Genera error 
-
-$instanciaClase->mi_metodo_publica();
-$instanciaClase->mi_metodo_privada(); #Genera error 
-```
-
-### Encapsulamiento, Getters y Setters
-
-```php
-class Persona
-{
-   private $nombre;
-   
-   public function getNombre()
-   {
-      return $this->nombre;
-   }
-   
-   public function setNombre($_nombre)
-   {
-      $this->nombre = $_nombre;
-   }
-}
-
-$cliente = new Persona();
-$cliente->setNombre("Juanito");
-
-echo "Bienvenido ". $cliente->getNombre();
-
-# Bienvenido Juanito
-
-```
 
 ### Consutructores y Destructores
 
@@ -676,6 +595,226 @@ $miObjeto2 = new MiClase("ABC");
 # Constructor con parametro : ABC
 
 # Destruido
+```
+
+## Herencia
+
+```php
+class Padre
+{
+    $pripiedad_padre;
+    
+    function metodo_padre()
+    {
+        //Lineas de codigo
+    }
+    
+    function __construct()
+    {
+        //Constructor padre
+    }
+}
+
+class Hijo extends Padre
+{
+    $propiedad_hijo;
+    
+    function metodo_hijo()
+    {
+        parent::pripiedad_padre="Valor inicial";
+        $this->propiedad_hijo = "Valor inicial";
+    }
+    
+    function __construct()
+    {
+        parent::__construct();
+    }
+}
 
 ```
+
+### Propiedades y metodos
+
+```php
+class MiClase
+{
+   public $mi_propiedad;
+   
+   public function mi_metodo()
+   {
+      //Lineas de codigo
+   }
+}
+
+$instanciaClase = new MiClase();
+$instanciaClase->mi_propiedad = "Valor";
+$instanciaClase->mi_metodo();
+
+```
+
+### Niveles de acceso
+
+```php
+
+class Padre
+{
+    public     $propiedad_publica_padre;
+    protected  $propiedad_protegida_padre;
+    private    $propiedad_privada_padre;
+}
+
+
+class MiClase
+{
+   public $mi_propiedad_publica;
+   private $mi_propiedad_privada;
+   
+   public function mi_metodo_publico()
+   {
+      parent::propiedad_publica_padre ="VALOR"; #Acceso , es publica
+      parent::propiedad_protegida_padre ="VALOR"; #Acceso , es protegida   
+      parent::propiedad_privada_padre ="VALOR"; #No es privada   
+      
+      //Lineas de codigo
+   }
+   
+   private function mi_metodo_privado()
+   {
+      //Lineas de codigo
+   }
+}
+
+$instanciaClase = new MiClase();
+
+$instanciaClase->mi_propiedad_publica = "Valor";
+$instanciaClase->mi_propiedad_privada = "Valor"; #Genera error 
+
+$instanciaClase->mi_metodo_publica();
+$instanciaClase->mi_metodo_privada(); #Genera error 
+
+$instanciaPadre = new Padre();
+$instanciaPadre->propiedad_publica_padre ="VALOR"; #Acceso , es publica
+$instanciaPadre->propiedad_protegida_padre ="VALOR"; #No , es protegida   
+$instanciaPadre->propiedad_privada_padre ="VALOR"; #No es privada   
+      
+
+```
+
+### Encapsulamiento, Getters y Setters
+
+```php
+class Persona
+{
+   private $nombre;
+   
+   public function getNombre()
+   {
+      return $this->nombre;
+   }
+   
+   public function setNombre($_nombre)
+   {
+      $this->nombre = $_nombre;
+   }
+}
+
+$cliente = new Persona();
+$cliente->setNombre("Juanito");
+
+echo "Bienvenido ". $cliente->getNombre();
+
+# Bienvenido Juanito
+
+```
+
+## Namespaces
+
+Declaracion de namespace  y sus clases
+
+```php
+namespace vehicles;
+
+class Car
+{
+
+}
+```
+
+Importando clases de un namespace
+
+```php
+use vehicles\Car;
+$obj = nes Car();
+```
+
+Importando varias clases
+
+
+```php
+use vehicles\Car;
+use vehicles\Truck;
+
+#Resumido
+use vehicles\{Car,Truck};
+```
+
+Clases homonimas de diferentes namespaces
+
+```php
+$objUser1 = administrativo\User();
+$objUser2 = ejecutivo\User();
+```
+## Propiedade y metodos estaticos
+
+```php
+class Padre
+{
+  public static $propiedad_static;
+ 
+ 
+  public static function metodo_static()
+  {
+      //Lineas de codigo 
+  }
+}
+```
+
+Acceso desde fuera
+
+```php
+  Padre::propiedad_static ="VALOR";
+  Padre::metodo_static();
+```
+
+Acceso desde hijos
+
+```php
+  class Hijo extends
+  {
+      function metodo_hijo()
+      {
+          self::propiedad_static;
+          self::metodo_static;
+      }
+  }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Funciones PHP
+
+### unset
+
+### array_map()
 
